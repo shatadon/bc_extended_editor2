@@ -31,12 +31,14 @@ function get_products() {
         };
         $.ajax(settings).done(function (response) {
         // console.log(response);
+            // TODO : Seperate the returned sections values into tabs the same way you would see it in the control panel 
             $.each(response, function (index, value) {
 
                 jQuery("<div id='contentbody'></div>").appendTo("body");
 
                 $.each(value, function(k, v){
-                    $(".modal-body").prepend('<div class="col-4"><label>'+ k + '</label><input type="text" value="' + v +'"/></div>');
+                    k = k.replace("_" , " ").replace("_" , " ")
+                    $(".modal-body").addClass("container").prepend('<div class="col-sm-4 col-md-2"><label>'+ k + '</label><input type="text" value="' + v +'"/></div>');
 
                 });
 

@@ -1,8 +1,10 @@
 // Saves options to chrome.storage
 function save_options() {
-	var clientID = document.getElementById("client_id").value;
+	var clientID  = document.getElementById("client_id").value;
 	var authToken = document.getElementById("auth_token").value;
-	var storeHash = document.getElementById("store_hash").value;
+    var apiPath   = document.getElementById("store_hash").value;
+    var storeHash = apiPath.split("/")[4]
+	// var storeHash = document.getElementById("store_hash").value;
   chrome.storage.sync.set({
     client_ID: clientID,
     auth_Token: authToken,
@@ -34,4 +36,4 @@ function restore_options() {
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click', save_options);
+document.getElementById('save').addEvxentListener('click', save_options);

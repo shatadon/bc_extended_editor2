@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "BC Product Editore",
+  "version": "1.0",
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "css": ["css/jquery-ui.min.css","css/bootstrap.min.css","css/styles.css", "css/font-awesome/css/font-awesome.min.css"],
+      "js": ["js/jquery-3.2.1.min.js","js/tether.min.js","js/bootstrap.min.js","js/content.js", "options.js"],
+      "matches": ["<all_urls>", "http://*/*", "https://*/*"]
+
+    }
+  ],
+  "permissions": [
+        "storage"
+      ],
+  "browser_action": {
+    "default_icon": "bc_logo.png",
+    "default_popup": "options.html"
+  }
+}

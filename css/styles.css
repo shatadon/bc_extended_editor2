@@ -67,3 +67,33 @@ div#pop-up-container .modal-header {
     color: white !important;
     opacity: 1 !important;
 }
+
+.modal-header h5 {
+    margin-top: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+button#save_changes_header {
+    float: left !important;
+    position: absolute;
+    left: 1%;
+    background: #9e0404;
+    color: white;
+    font-weight: bold;
+}
+
+#pop-up-container .modal-body .nav-tabs>li>a {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+#pop-up-container ul.nav.nav-tabs {
+    padding-bottom: 0px;
+    padding-top: 20px;
+}
+div#pop-up-container input {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color:black;
+}

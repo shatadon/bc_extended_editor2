@@ -9,7 +9,7 @@
   },
   "content_scripts": [
     {
-      "css": ["css/jquery-ui.min.css","css/bootstrap.min.css","css/styles.css", "css/font-awesome/css/font-awesome.min.css"],
+      "css": ["css/jquery-ui.min.css","css/bootstrap.min.css","css/styles.css"],
       "js": ["js/jquery-3.2.1.min.js","js/tether.min.js","js/bootstrap.min.js","js/content.js", "options.js"],
       "matches": ["<all_urls>", "http://*/*", "https://*/*"]
 

@@ -118,7 +118,14 @@ function get_product() {
               $("#inventory").append('<div class="col-sm-4 col-md-2"><label>Inventory Warning Level:</label><input id="inv_Warning" type="text" value="'+ response.data.inventory_warning_level +'"/></div>');
               $("#inventory").append('<div class="col-sm-4 col-md-2"><label>Inventory Level:</label><input id="inv_Level" type="text" value="'+ response.data.inventory_level +'"/></div>');
 
-
+              $("input").each(function(){
+                  var $this = $(this);
+                  $this.keyup(function(){
+                      var newData = $(this).val();
+                      $this.val(newData);
+                      console.log(newData);
+                  });
+              });
 
 
 
@@ -159,7 +166,7 @@ function update_product() {
       var price = jQuery('input#price').val();
       var retail_price = jQuery('input#retail_price').val();
       var sale_price = jQuery('input#sale_price').val();
-      var desc = jQuery('textarea#desc').html();
+      var desc = jQuery('textarea#desc').html();alert(desc);
       var type = jQuery('select#type option:selected').val();
       var weight = jQuery('input#weight').val();
       var height = jQuery('input#height').val();
@@ -220,14 +227,14 @@ function update_product() {
 
       }; //end settings variable
       $.ajax(settings).done(function (response) {
-            console.log("Success: " + response);
+            console.log("Success: " + response.data);
             var updateStatus = jQuery('.modal-body.container');
             jQuery(updateStatus).html("<h1 style='color:green;'>Product Updated Successfully!</h1>");
             setTimeout(function() {
               cancel_edit();
             }, 750);
       }).fail(function (response) {
-            console.log("Fail Reason: " + response);
+            console.log("Fail Reason: " + response.error);
       }); //end response ajax
 
     }); // end Storage get function

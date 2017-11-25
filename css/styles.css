@@ -97,3 +97,10 @@ div#pop-up-container input {
     font-size: 0.9rem;
     color:black;
 }
+div#pop-up-container div.tabContent {
+    display: none;
+}
+
+div#pop-up-container div.tabContent.active {
+    display: block;
+}

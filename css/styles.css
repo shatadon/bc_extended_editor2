@@ -29,7 +29,7 @@ img.hilogo {
 }
 
 body.bc-editor {
-    padding-top: 100px;
+    padding-top: 70px;
 }
 button#editor-btn {
     text-align: right !important;
@@ -122,9 +122,6 @@ div#editorPopup {
     max-width: 100%;
 }
 
-div#editorPopup {
-    padding-top: 30px;
-}
 
 #pop-up-container .col-sm-4.col-md-2 {
     float: left;
@@ -219,4 +216,33 @@ div#dasher_bc_editor_modal_footer .saveProduct {
 
 div#editorPopup {
     min-height: 99vh;
+}
+
+header#editor-btn {
+    float: left;
+    width: 100%;
+    background-color: rgb(2, 117, 216);
+    z-index: 1000;
+    position: absolute;
+    top: 0px;
+    height: 65px;
+}
+#editor-btn button.btn.btn-secondary {
+    float: right;
+    margin-top: 18px;
+    margin-right: 28px;
+    background: #940505;
+    color: white;
+    border: 0px;
+    border-bottom: 1px solid #750b0b;
+    font-weight: normal;
+    padding: 8px 40px;
+    border-radius: 5px !important;
+    font-size: 1.2em;
+}
+div#editorPopup {
+    margin-top: 30px;
+}
+header#editor-btn {
+z-index:5555;
 }

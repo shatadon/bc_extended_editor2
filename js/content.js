@@ -14,7 +14,11 @@ if (jQuery('input[type="hidden"][name="product_id"]').length === 0) {
     get_product();
 
   jQuery("body").addClass("bc-editor");
-  jQuery(".bc-editor").prepend("<button type='button' id='editor-btn' class='btn btn-primary' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/> &nbsp;Edit This Product</button>");
+  // jQuery(".bc-editor").prepend("<button type='button' id='editor-btn' class='btn btn-primary' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/> &nbsp;Edit This Product</button>");
+jQuery(".bc-editor").prepend("<header id='editor-btn' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/><button class='btn btn-secondary'>Edit This Product</button></header>");
+
+
+
 }  //end If statement
 
 

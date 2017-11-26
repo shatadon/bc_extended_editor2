@@ -1,10 +1,23 @@
 //No click event
+
+
 if (jQuery('input[type="hidden"][name="product_id"]').length === 0) {
   //Do nothing
 } else {
+
+
+    $.get(chrome.extension.getURL('templates/modal_popup.html'), function(data) {
+
+        // Or if you're using jQuery 1.8+:
+        $($.parseHTML(data)).prependTo('body');
+    });
+    get_product();
+
   jQuery("body").addClass("bc-editor");
   jQuery(".bc-editor").prepend("<button type='button' id='editor-btn' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalLong'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/10/hiintel2.png'/>&nbsp;Edit This Product</button>");
 }  //end If statement
+
+
 
 function get_product() {
     chrome.storage.sync.get({
@@ -26,111 +39,45 @@ function get_product() {
           }
         };
         $.ajax(settings).done(function (response) {
-            // console.log(response.data);
-            // TODO : Seperate the returned sections values into tabs the same way you would see it in the control panel
-
-            jQuery('body').prepend(
-              '<div id="pop-up-container">'
-              +
-              '<div tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">'
-              +
-              '<div class="modal-dialog" role="document"><div class="modal-content">'
-              +
-              '<div class="modal-header">'
-              +
-              '<button id="save_changes_header" class="btn btn-secondary saveProduct">save changes</button>'
-              +
-              '<h5 class="Product Name" id="exampleModalLongTitle">'+response.data.name+'</h5>'
-              +
-              '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
-              +
-              '<span aria-hidden="true">&times;</span>'
-              +
-              '</button></div>'
-              +
-              '<div class="modal-body container"><ul class="nav nav-tabs">'
-              +
-              '<li role="presentation" class="active" data-tab="details"><a href="#">Details</a></li>'
-              +
-              '<li role="presentation" data-tab="media"><a href="#">Images and videos</a></li>'
-              +
-              '<li role="presentation" data-tab="inventory"><a href="#">Inventory</a></li>'
-              +
-              '<li role="presentation" data-tab="other"><a href="#">Other details</a></li>'
-              +
-              '</ul></div>'
-              +
-              '<div class="modal-footer">'
-              +
-              '<button type="button" id="closeBottom" class="btn btn-secondary closeBottom" data-dismiss="modal">Close</button>'
-              +
-              '<button type="button" class="btn btn-primary saveProduct">Save changes</button>'
-              +
-              '</div></div></div></div></div>'); //end create modal
-
-              // Tab content Block
-              $(".modal-body").append('<div id="details" class="tabContent active"></div>');
-              $(".modal-body").append('<div id="media" class="tabContent"></div>');
-              $(".modal-body").append('<div id="inventory" class="tabContent"></div>');
-              $(".modal-body").append('<div id="other" class="tabContent"></div>');
-
-              // content for Details Tab
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Name:</label><input id="name" type="text" value="' + response.data.name +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Sku:</label><input id="sku" type="text" value="' + response.data.sku +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label data-toggle="tooltip" title="The price of the product">Price:</label><input id="price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" value="' + response.data.price +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Retail Price:</label><input id="retail_price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" value="' + response.data.retail_price +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Sale Price:</label><input id="sale_price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" value="' + response.data.sale_price +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Description:</label><textarea id="desc">'+ response.data.description +'</textarea></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Type:</label><select id="type"><option value="physical">Physical</option><option value="digital">Digital</option></select></div>');
-              $("select#type").val(response.data.type);
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Weight:</label><input id="weight" type="text" value="' + response.data.weight +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Height:</label><input id="height" type="text" value="' + response.data.height +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Width:</label><input id="width" type="text" value="' + response.data.width +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Depth:</label><input id="depth" type="text" value="' + response.data.depth +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Product Visible:</label><select id="isVisible"><option value="true">True</option><option value="false">False</option></select></div>');
-              $("select#isVisible").val(response.data.is_visible);
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Featured:</label><select id="isFeatured"><option value="true">True</option><option value="false">False</option></select></div>');
-              $("select#isFeatured").val(response.data.is_featured);
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Warranty:</label><textarea id="warranty">'+ response.data.warranty +'</textarea></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Bin Picking Number:</label><input id="bin" type="text" value="' + response.data.bin_picking_number +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>UPC:</label><input id="upc" type="text" value="' + response.data.upc +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Availability:</label><select id="availability"><option value="available">Available</option><option value="disabled">Disabled</option><option value="preorder">Preorder</option></select></div>');
-              $("select#availability").val(response.availability);
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Availability Description:</label><input id="avail_desc" type="text" value="' + response.data.availability_description +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Show Condition:</label><select id="showCondition"><option value="true">True</option><option value="false">False</option></select></div>');
-              $("select#showCondition").val(response.data.is_condition_shown );
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Condition:</label><select id="condition"><option value="New">New</option><option value="Used">Used</option><option value="Refurbished">Refurbished</option></select></div>');
-              $("select#condition").val(response.condition);
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Min Order Qty:</label><input id="min_qty" type="text" value="' + response.data.order_quantity_minimum +'"/></div>');
-              $("#details").append('<div class="col-sm-4 col-md-2"><label>Max Order Qty:</label><input id="max_qty" type="text" value="' + response.data.order_quantity_maximum +'"/></div>');
-
-
-
-              //Media Tab content
-              $("#media").append('<div class="col-sm-4 col-md-2"><label>Images:</label><img src="'+response.data.variants[0].image_url+'"/><label>Upload Images:</label><input id="img_files" type="file" multiple/></div>');
+            var data = response.data;
+              $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Name:</label><input id="name" type="text" value="' + data.name +'" /></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Sku:</label><input id="sku" type="text" value="' + data.sku +'" /></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label data-toggle="tooltip" title="The price of the product">Price:</label><input id="price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" value="' + data.price +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Retail Price:</label><input id="retail_price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" value="' + data.retail_price +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Sale Price:</label><input id="sale_price" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" value="' + data.sale_price +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Description:</label><textarea id="desc">'+ data.description +'</textarea></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Type:</label><select id="type"><option value="physical">Physical</option><option value="digital">Digital</option></select></div>');
+               $("select#type").val(data.type);
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Weight:</label><input id="weight" type="text" value="' + data.weight +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Height:</label><input id="height" type="text" value="' + data.height +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Width:</label><input id="width" type="text" value="' + data.width +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Depth:</label><input id="depth" type="text" value="' + data.depth +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Product Visible:</label><select id="isVisible"><option value="true">True</option><option value="false">False</option></select></div>');
+               $("select#isVisible").val(data.is_visible);
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Featured:</label><select id="isFeatured"><option value="true">True</option><option value="false">False</option></select></div>');
+               $("select#isFeatured").val(data.is_featured);
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Warranty:</label><textarea id="warranty">'+ data.warranty +'</textarea></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Bin Picking Number:</label><input id="bin" type="text" value="' + data.bin_picking_number +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>UPC:</label><input id="upc" type="text" value="' + data.upc +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Availability:</label><select id="availability"><option value="available">Available</option><option value="disabled">Disabled</option><option value="preorder">Preorder</option></select></div>');
+               $("select#availability").val(response.availability);
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Availability Description:</label><input id="avail_desc" type="text" value="' + data.availability_description +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Show Condition:</label><select id="showCondition"><option value="true">True</option><option value="false">False</option></select></div>');
+               $("select#showCondition").val(data.is_condition_shown );
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Condition:</label><select id="condition"><option value="New">New</option><option value="Used">Used</option><option value="Refurbished">Refurbished</option></select></div>');
+               $("select#condition").val(response.condition);
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Min Order Qty:</label><input id="min_qty" type="text" value="' + data.order_quantity_minimum +'"/></div>');
+               $("#pop-up-container").append('<div class="col-sm-4 col-md-2"><label>Max Order Qty:</label><input id="max_qty" type="text" value="' + data.order_quantity_maximum +'"/></div>');
 
 
 
 
-              //Inventory Tab content
-              $("#inventory").append('<div class="col-sm-4 col-md-2"><label>Inventory Tracking:</label><select id="invTracking"><option value="none">None</option><option value="product">Product</option></select></div>');
-              $("select#invTracking").val(response.data.inventory_tracking);
-              $("#inventory").append('<div class="col-sm-4 col-md-2"><label>Inventory Warning Level:</label><input id="inv_Warning" type="text" value="'+ response.data.inventory_warning_level +'"/></div>');
-              $("#inventory").append('<div class="col-sm-4 col-md-2"><label>Inventory Level:</label><input id="inv_Level" type="text" value="'+ response.data.inventory_level +'"/></div>');
 
-              $("input").each(function(){
-                  var $this = $(this);
-                  $this.keyup(function(){
-                      var newData = $(this).val();
-                      $this.val(newData);
-                      console.log(newData);
-                  });
-              });
 
 
 
               //cancel changes
-              jQuery('.close, .closeBottom').on('click', cancel_edit);
+              // jQuery('.close, .closeBottom').on('click', cancel_edit);
 
               //control Tab click
               jQuery('#pop-up-container ul.nav.nav-tabs li a').click(function(){
@@ -150,100 +97,153 @@ function get_product() {
 
 } // end get product function
 
-
 function update_product() {
-    chrome.storage.sync.get({
-      'client_ID':'',
-      'auth_Token':'',
-  		'store_Hash':''
-    }, function(items) {
-      var productID = jQuery('input[type="hidden"][name="product_id"]').val();
-      var apiURL = "https://api.bigcommerce.com/stores/" + items.store_Hash + "/v3/catalog/products/" + productID;
+          // define product data
+         var name = jQuery('input#name').prop("value");
+         var sku = jQuery('input#sku').prop("value");
+          var price = jQuery('input#price').prop("value");
+          var retail_price = jQuery('input#retail_price').prop("value");
+          var sale_price = jQuery('input#sale_price').prop("value");
+          var desc = jQuery('textarea#desc').html();
 
-      // define product data
-      var name = jQuery('input#name').val();
-      var sku = jQuery('input#sku').val();
-      var price = jQuery('input#price').val();
-      var retail_price = jQuery('input#retail_price').val();
-      var sale_price = jQuery('input#sale_price').val();
-      var desc = jQuery('textarea#desc').html();alert(desc);
-      var type = jQuery('select#type option:selected').val();
-      var weight = jQuery('input#weight').val();
-      var height = jQuery('input#height').val();
-      var width = jQuery('input#width').val();
-      var depth = jQuery('input#depth').val();
-      var isVisible = jQuery('select#isVisible option:selected').val();
-      var isFeatured = jQuery('select#isFeatured option:selected').val();
-      var warranty = jQuery('textarea#warranty').html();
-      var bin = jQuery('input#bin').val();
-      var upc = jQuery('input#upc').val();
-      var availability = jQuery('select#availability option:selected').val();
-      var avail_desc = jQuery('input#avail_desc').val();
-      var showCondition = jQuery('select#showCondition option:selected').val();
-      var condition = jQuery('select#condition option:selected').val();
-      var min_qty = jQuery('input#min_qty').val();
-      var max_qty = jQuery('input#max_qty').val();
-      var invTracking = jQuery('select#invTracking option:selected').val();
-      var inv_Warning = jQuery('input#inv_Warning').val();
-      var inv_Level = jQuery('input#inv_Level').val();
+    var data = JSON.stringify({
+  "name": name,
+  "sku": sku
+});
 
-      var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": apiURL,
-        "method": "PUT",
-        "headers": {
-            "x-auth-token": items.auth_Token,
-            "x-auth-client": items.client_ID,
-            "cache-control": "no-cache"
-          },
-        "body": {
-            "name": name,
-            "type": type,
-            "sku": sku,
-            "description": desc,
-            "weight": weight,
-            "width": width,
-            "depth": depth,
-            "height": height,
-            "price": price,
-            "retail_price": retail_price,
-            "sale_price": sale_price,
-            "inventory_level": inv_Level,
-            "inventory_warning_level": inv_Warning,
-            "inventory_tracking": invTracking,
-            "is_visible": isVisible,
-            "is_featured": isFeatured,
-            "warranty": warranty,
-            "bin_picking_number": bin,
-            "upc": upc,
-            "availability": availability,
-            "availability_description": avail_desc,
-            "condition": condition,
-            "is_condition_shown": showCondition,
-            "order_quantity_minimum": min_qty,
-            "order_quantity_maximum": max_qty
-          }
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
 
-      }; //end settings variable
-      $.ajax(settings).done(function (response) {
-            console.log("Success: " + response.data);
-            var updateStatus = jQuery('.modal-body.container');
-            jQuery(updateStatus).html("<h1 style='color:green;'>Product Updated Successfully!</h1>");
-            setTimeout(function() {
-              cancel_edit();
-            }, 750);
-      }).fail(function (response) {
-            console.log("Fail Reason: " + response.error);
-      }); //end response ajax
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
 
-    }); // end Storage get function
+xhr.open("PUT", "https://api.bigcommerce.com/stores/8316qn/v3/catalog/products/2");
+xhr.setRequestHeader("x-auth-client", "pkdj66fxj2obi15e794gwa31vgt7j1c");
+xhr.setRequestHeader("x-auth-token", "at7y5ayx1vx3b7yrc87n2ecqo24phwc");
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("cache-control", "no-cache");
+xhr.setRequestHeader("postman-token", "b1f6a5b4-0940-3623-9ac3-b0357287bc88");
+
+xhr.send(data);
+
+//     chrome.storage.sync.get({
+//       'client_ID':'',
+//       'auth_Token':'',
+//   		'store_Hash':''
+//     }, function(items) {
+//       var productID = jQuery('input[type="hidden"][name="product_id"]').val();
+//       var apiURL = "https://api.bigcommerce.com/stores/" + items.store_Hash + "/v3/catalog/products/" + productID;
+//
+//       // define product data
+//      var name = jQuery('input#name').prop("value");
+//       var sku = jQuery('input#sku').prop("value");
+//       var price = jQuery('input#price').prop("value");
+//       var retail_price = jQuery('input#retail_price').prop("value");
+//       var sale_price = jQuery('input#sale_price').prop("value");
+//       var desc = jQuery('textarea#desc').html();
+//       var type = jQuery('select#type option:selected').prop("value");
+//       var weight = jQuery('input#weight').prop("value");
+//       var height = jQuery('input#height').prop("value");
+//       var width = jQuery('input#width').prop("value");
+//       var depth = jQuery('input#depth').prop("value");
+//       var isVisible = jQuery('select#isVisible option:selected').prop("value");
+//       var isFeatured = jQuery('select#isFeatured option:selected').prop("value");
+//       var warranty = jQuery('textarea#warranty').html();
+//       var bin = jQuery('input#bin').prop("value");
+//       var upc = jQuery('input#upc').prop("value");
+//       var availability = jQuery('select#availability option:selected').prop("value");
+//       var avail_desc = jQuery('input#avail_desc').prop("value");
+//       var showCondition = jQuery('select#showCondition option:selected').prop("value");
+//       var condition = jQuery('select#condition option:selected').prop("value");
+//       var min_qty = jQuery('input#min_qty').prop("value");
+//       var max_qty = jQuery('input#max_qty').prop("value");
+//       var invTracking = jQuery('select#invTracking option:selected').prop("value");
+//       var inv_Warning = jQuery('input#inv_Warning').prop("value");
+//       var inv_Level = jQuery('input#inv_Level').prop("value");
+//       var settings = {
+//   "async": true,
+//   "crossDomain": true,
+//   "url": "https://api.bigcommerce.com/stores/8316qn/v3/catalog/products/2",
+//   "method": "PUT",
+//   "headers": {
+//     "x-auth-client": "pkdj66fxj2obi15e794gwa31vgt7j1c",
+//     "x-auth-token": "at7y5ayx1vx3b7yrc87n2ecqo24phwc",
+//     "cache-control": "no-cache",
+//     "postman-token": "cd1e3308-1433-bc63-f77f-e2805eaabc95"
+//   },
+//
+// }
+//
+// $.ajax(settings).done(function (response) {
+//   console.log(response);
+// });
+//       var settings = {
+//         "async": true,
+//         "crossDomain": true,
+//         "url": apiURL,
+//         "context": document.body,
+//         "method": "PUT",
+//         "headers": {
+//             "x-auth-token": items.auth_Token,
+//             "x-auth-client": items.client_ID,
+//             "cache-control": "no-cache"
+//           },
+//         "body": {
+//             "name": name,
+//             "type": type,
+//             "sku": sku,
+//             "description": desc,
+//             "weight": weight,
+//             "width": width,
+//             "depth": depth,
+//             "height": height,
+//             "price": price,
+//             "retail_price": retail_price,
+//             "sale_price": sale_price,
+//             "inventory_level": inv_Level,
+//             "inventory_warning_level": inv_Warning,
+//             "inventory_tracking": invTracking,
+//             "is_visible": isVisible,
+//             "is_featured": isFeatured,
+//             "warranty": warranty,
+//             "bin_picking_number": bin,
+//             "upc": upc,
+//             "availability": availability,
+//             "availability_description": avail_desc,
+//             "condition": condition,
+//             "is_condition_shown": showCondition,
+//             "order_quantity_minimum": min_qty,
+//             "order_quantity_maximum": max_qty
+//           }
+//
+//       }; //end settings variable
+//       $.ajax(settings).done(function (response) {
+//           console.log(name);
+//           console.log(apiURL)
+//
+//             console.log("Success: " + response.data);
+//             var updateStatus = jQuery('.modal-body.container');
+//             jQuery(updateStatus).html("<h1 style='color:green;'>Product Updated Successfully!</h1>");
+//             setTimeout(function() {
+//               // cancel_edit();
+//             }, 750);
+//       }).fail(function (response) {
+//             console.log("Fail Reason: " + response.error);
+//       }); //end response ajax
+//
+//     }); // end Storage get function
 
 } // end update product function
 
-function cancel_edit() {
-  $('#pop-up-container').remove();
-}
+
+//
+// function cancel_edit() {
+//   $('#pop-up-container').remove();
+// }
+
 
 jQuery('#editor-btn').on('click', get_product);
 

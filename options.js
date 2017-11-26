@@ -11,7 +11,7 @@ function save_options() {
 		store_Hash: storeHash
   }, function() {
     // Update status to let user know options were saved.
-    var status = document.getElementById('status');
+    var status = document.getElementById('status'); 
     status.textContent = 'Store settings saved.';
     setTimeout(function() {
       status.textContent = '';

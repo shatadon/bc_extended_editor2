@@ -15,7 +15,7 @@ if (jQuery('input[type="hidden"][name="product_id"]').length === 0) {
 
   jQuery("body").addClass("bc-editor");
   // jQuery(".bc-editor").prepend("<button type='button' id='editor-btn' class='btn btn-primary' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/> &nbsp;Edit This Product</button>");
-jQuery(".bc-editor").prepend("<header id='editor-btn' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/><button class='btn btn-secondary'>Edit This Product</button></header>");
+jQuery(".bc-editor").prepend("<header id='editor-btn' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/><button class='btn btn-secondary'>Edit This Product</button> <button class='btn btn-secondary'> Create a product</button></header>");
 
 
 
@@ -60,26 +60,29 @@ function get_product() {
             $("select#type").val(response.data.type);
             $("#details").append('<div class="col-sm-6 col-md-4"><label>Weight:</label><input id="weight" type="text" value="' + response.data.weight +'"/></div>');
             $("#details").append('<div class="col-sm-6 col-md-4"><label>Height:</label><input id="height" type="text" value="' + response.data.height +'"/></div>');
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Width:</label><input id="width" type="text" value="' + response.data.width +'"/></div>');
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Depth:</label><input id="depth" type="text" value="' + response.data.depth +'"/></div>');
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Product Visible:</label><select id="isVisible"><option value="true">True</option><option value="false">False</option></select></div>');
-            // $("select#isVisible").val(response.data.is_visible);
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Featured:</label><select id="isFeatured"><option value="true">True</option><option value="false">False</option></select></div>');
-            // $("select#isFeatured").val(response.data.is_featured);
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Warranty:</label><textarea id="warranty">'+ response.data.warranty +'</textarea></div>');
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Bin Picking Number:</label><input id="bin" type="text" value="' + response.data.bin_picking_number +'"/></div>');
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>UPC:</label><input id="upc" type="text" value="' + response.data.upc +'"/></div>');
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Availability:</label><select id="availability"><option value="available">Available</option><option value="disabled">Disabled</option><option value="preorder">Preorder</option></select></div>');
-            // $("select#availability").val(response.availability);
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Availability Description:</label><input id="avail_desc" type="text" value="' + response.data.availability_description +'"/></div>');
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Show Condition:</label><select id="showCondition"><option value="true">True</option><option value="false">False</option></select></div>');
-            // $("select#showCondition").val(response.data.is_condition_shown );
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Condition:</label><select id="condition"><option value="New">New</option><option value="Used">Used</option><option value="Refurbished">Refurbished</option></select></div>');
-            // $("select#condition").val(response.condition);
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Min Order Qty:</label><input id="min_qty" type="text" value="' + response.data.order_quantity_minimum +'"/></div>');
-            // $("#details").append('<div class="col-sm-6 col-md-4"><label>Max Order Qty:</label><input id="max_qty" type="text" value="' + response.data.order_quantity_maximum +'"/></div>');
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Width:</label><input id="width" type="text" value="' + response.data.width +'"/></div>');
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Depth:</label><input id="depth" type="text" value="' + response.data.depth +'"/></div>');
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Product Visible:</label><select id="isVisible"><option value="true">True</option><option value="false">False</option></select></div>');
+            $("select#isVisible").val(response.data.is_visible);
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Featured:</label><select id="isFeatured"><option value="true">True</option><option value="false">False</option></select></div>');
+            $("select#isFeatured").val(response.data.is_featured);
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Warranty:</label><textarea id="warranty">'+ response.data.warranty +'</textarea></div>');
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Bin Picking Number:</label><input id="bin" type="text" value="' + response.data.bin_picking_number +'"/></div>');
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>UPC:</label><input id="upc" type="text" value="' + response.data.upc +'"/></div>');
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Availability:</label><select id="availability"><option value="available">Available</option><option value="disabled">Disabled</option><option value="preorder">Preorder</option></select></div>');
+            $("select#availability").val(response.availability);
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Availability Description:</label><input id="avail_desc" type="text" value="' + response.data.availability_description +'"/></div>');
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Show Condition:</label><select id="showCondition"><option value="true">True</option><option value="false">False</option></select></div>');
+            $("select#showCondition").val(response.data.is_condition_shown );
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Condition:</label><select id="condition"><option value="New">New</option><option value="Used">Used</option><option value="Refurbished">Refurbished</option></select></div>');
+            $("select#condition").val(response.condition);
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Min Order Qty:</label><input id="min_qty" type="text" value="' + response.data.order_quantity_minimum +'"/></div>');
+            $("#details").append('<div class="col-sm-6 col-md-4"><label>Max Order Qty:</label><input id="max_qty" type="text" value="' + response.data.order_quantity_maximum +'"/></div>');
 
+            $('#pop-up-container input#name').keyup(function() {
+               $('h5#dasher_popup_header_title').text($(this).val());
 
+            });
           //Media Tab content
            $("#media").append('<div class="col-sm-6 col-md-4"><label>Images:</label><img src="'+response.data.variants[0].image_url+'"/><label>Upload Images:</label><input id="img_files" type="file" multiple/></div>');
 
@@ -140,10 +143,12 @@ function update_product() {
           var sale_price = jQuery('input#sale_price').prop("value");
           var desc = jQuery('textarea#desc').html();
 
+
     var data = JSON.stringify({
   "name": name,
   "sku": sku,
   "price": price,
+  "sale_price": sale_price,
   "description":desc
 });
 

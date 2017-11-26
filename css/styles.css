@@ -246,3 +246,7 @@ div#editorPopup {
 header#editor-btn {
 z-index:5555;
 }
+header#editor-btn {
+    position:fixed;
+
+}

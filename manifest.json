@@ -15,8 +15,12 @@
 
     }
   ],
+  "web_accessible_resources" : [
+        "templates/*"
+  ],
+
   "permissions": [
-        "storage"
+        "storage","tabs", "http://*/*", "https://*/*","file:///*" , "activeTab"
       ],
   "browser_action": {
     "default_icon": "bc_logo.png",

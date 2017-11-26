@@ -5,25 +5,25 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   // Send a message to the active tab
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     var activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
+    chrome.tabs.executeScript(activeTab.id, {file: js/content.js});
   });
 });
 
 
-// Handle requests for passwords
-chrome.runtime.onMessage.addListener(function(request, sender) {
-    if (request.type === 'edit_product') {
-        chrome.tabs.create({
-            url: chrome.extension.getURL('../product.html'),
-            active: false
-        }, function(tab) {
-            // After the tab has been created, open a window to inject the tab
-            chrome.windows.create({
-                tabId: tab.id,
-                type: 'popup',
-                focused: true
-                // incognito, top, left, ...
-            });
-        });
-    }
-});
+// // Handle requests for passwords
+// chrome.runtime.onMessage.addListener(function(request, sender) {
+//     if (request.type === 'edit_product') {
+//         chrome.tabs.create({
+//             url: chrome.extension.getURL('../product.html'),
+//             active: false
+//         }, function(tab) {
+//             // After the tab has been created, open a window to inject the tab
+//             chrome.windows.create({
+//                 tabId: tab.id,
+//                 type: 'popup',
+//                 focused: true
+//                 // incognito, top, left, ...
+//             });
+//         });
+//     }
+// });

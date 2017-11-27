@@ -1,48 +1,54 @@
-<div id="pop-up-container">
-    <form>
+<div class="modal fade" id="editorPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background:#0375d8;">
 
+          <div class="modal-header">
 
-    <ul class="nav nav-tabs">
+              <button id="save_changes_header" class="btn btn-secondary saveProduct">save changes</button>
 
-        <li role="presentation" class="active" data-tab="details"><a href="#">Details</a></li>
+              <h5 class="Product Name" id="dasher_popup_header_title">response.data.name</h5>
 
-        <li role="presentation" data-tab="media"><a href="#">Images and videos</a></li>
-
-        <li role="presentation" data-tab="inventory"><a href="#">Inventory</a></li>
-
-        <li role="presentation" data-tab="other"><a href="#">Other details</a></li>
-
-    </ul>
-    <div tabindex="-1" role="dialog" aria-labelledby="examplenotModalLongTitle" aria-hidden="true">
-
-        <div class="notModal-dialog" role="document">
-            <div class="notModal-content">
-
-                <div class="notModal-header">
-
-                    <button id="save_changes_header" class="btn btn-secondary saveProduct">save changes</button>
-
-                    <h5 class="Product Name" id="examplenotModalLongTitle">response.data.name</h5>
-
-                    <button type="button" class="close" data-dismiss="no1111" aria-label="Close">
+              <button type="button" class="close" data-dismiss="no1111" aria-label="Close">
 
 <span aria-hidden="true">&times;</span>
 
 </button></div>
+<div id="pop-up-container">
+    <div class="tab-content">
 
-                <div class="notModal-body container">
 
-                </div>
-
-                <div class="notModal-footer">
-
-                    <button type="button" id="closeBottom" class="btn btn-secondary closeBottom" data-dismiss="notModal">Close</button>
-
-                    <button type="button" class="btn btn-primary saveProduct">Save changes</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-        </form>
 </div>
+          <div class="modal-body">
+              <div class="container">
+                  <div class="col-sm-8">
+
+                  </div>
+                  <div class="col-sm-4">
+
+                  </div>
+
+              </div>
+
+
+          </div>
+</div>
+          <div class="modal-footer" id="dasher_bc_editor_modal_footer">
+
+              <button type="button" id="closeBottom" class="btn btn-secondary closeBottom" data-dismiss="modal">Close</button>
+
+              <button type="button" class="btn btn-primary saveProduct">Save changes</button>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<!--
+    <div tabindex="-1" role="dialog" aria-labelledby="examplemodalLongTitle" aria-hidden="true" id="exampleModalLong">
+
+        <div class="modal-dialog" role="document">
+
+        </div>
+    </div> -->

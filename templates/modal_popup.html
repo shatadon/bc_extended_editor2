@@ -1,24 +1,29 @@
 <div class="modal fade" id="editorPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
-      <div class="modal-content" style="background:#0375d8;">
-
-          <div class="modal-header">
-
-              <button id="save_changes_header" class="btn btn-secondary saveProduct">save changes</button>
-
-              <h5 class="Product Name" id="dasher_popup_header_title">response.data.name</h5>
-
-              <button type="button" class="close" data-dismiss="no1111" aria-label="Close">
-
-<span aria-hidden="true">&times;</span>
-
-</button></div>
-<div id="pop-up-container">
-    <div class="tab-content">
-
-
-</div>
+    <div class="modal-content" style="background:#0375d8;">
+      <div class="modal-header">
+        <button id="save_changes_header" class="btn btn-secondary saveProduct">save changes</button>
+        <h5 class="Product Name" id="dasher_popup_header_title">response.data.name</h5>
+        <button type="button" class="close" data-dismiss="no1111" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="dasher_editor_pop-up-container">
           <div class="modal-body">
+              <ul class="nav nav-tabs">
+                  <li class="nav-item" data-tab="details">
+                    <a class="nav-link active" href="#">Details</a>
+                  </li>
+                  <li class="nav-item" data-tab="media">
+                    <a class="nav-link" href="#">Media</a>
+                  </li>
+                  <li class="nav-item" data-tab="inventory">
+                    <a class="nav-link" href="#">Inventory</a>
+                  </li>
+                  <li class="nav-item" data-tab="other">
+                    <a class="nav-link" href="#">Other</a>
+                  </li>
+              </ul>
               <div class="container">
                   <div class="col-sm-8">
 
@@ -26,23 +31,19 @@
                   <div class="col-sm-4">
 
                   </div>
-
               </div>
-
-
-          </div>
-</div>
-          <div class="modal-footer" id="dasher_bc_editor_modal_footer">
-
-              <button type="button" id="closeBottom" class="btn btn-secondary closeBottom" data-dismiss="modal">Close</button>
-
-              <button type="button" class="btn btn-primary saveProduct">Save changes</button>
-
           </div>
       </div>
+      <div class="modal-footer" id="dasher_bc_editor_modal_footer">
+
+        <button type="button" id="closeBottom" class="btn btn-secondary closeBottom" data-dismiss="modal">Close</button>
+
+        <button type="button" class="btn btn-primary saveProduct">Save changes</button>
+
+    </div>
+    </div>
   </div>
 </div>
-
 
 
 <!--

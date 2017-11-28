@@ -9,14 +9,14 @@
   },
   "content_scripts": [
     {
-      "css": ["css/jquery-ui.min.css","css/bootstrap.min.css","css/styles.css"],
-      "js": ["js/jquery-3.2.1.min.js","js/tether.min.js","js/bootstrap.min.js","js/content.js", "options.js"],
+      "css": ["css/jquery-ui.min.css","css/bootstrap.min.css","editor/summernote-bs4.css","css/styles.css"],
+      "js": ["js/jquery-3.2.1.min.js","js/tether.min.js","js/bootstrap.min.js","editor/summernote-bs4.js","js/content.js","options.js"],
       "matches": ["<all_urls>", "http://*/*", "https://*/*"]
-
     }
   ],
   "web_accessible_resources" : [
-        "templates/*"
+        "templates/*",
+        "editor/*"
   ],
 
   "permissions": [

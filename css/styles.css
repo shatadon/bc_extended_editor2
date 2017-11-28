@@ -76,7 +76,7 @@ button#save_changes_header {
     text-decoration: none;
 }
 div#editorPopup {
-    display: block;
+    display: none;
     left: 0px;
     width: 100%;
     max-width: 100%;
@@ -119,12 +119,12 @@ div#editorPopup {
     float: left;
 }
 
-#pop-up-container .modal-dialog {
+#dasher_editor_pop-up-container .modal-dialog {
     max-width: 100%;
 }
 
 
-#pop-up-container .col-sm-4.col-md-2 {
+#dasher_editor_pop-up-container .col-sm-4.col-md-2 {
     float: left;
 }
 #editorPopup .modal-dialog {
@@ -132,33 +132,33 @@ div#editorPopup {
     max-width: 100%;
 }
 
-#pop-up-container .col-sm-6.col-md-4 {
+#dasher_editor_pop-up-container .col-sm-6.col-md-4 {
     float: left;
 }
-#pop-up-container .col-sm-6.col-md-4 {
+#dasher_editor_pop-up-container .col-sm-6.col-md-4 {
     float: left;
     min-height: 100px;
     text-align: left;
     padding: 0px 30px;
 }
 
-#pop-up-container .col-sm-6.col-md-4 label {
+#dasher_editor_pop-up-container .col-sm-6.col-md-4 label {
     clear: both;
     float: left;
 }
 
-#pop-up-container .col-sm-6.col-md-4 input {
+#dasher_editor_pop-up-container .col-sm-6.col-md-4 input {
     clear: both;
     float: left;
 }
 
-#pop-up-container .col-sm-6.col-md-4 textarea {
+#dasher_editor_pop-up-container .col-sm-6.col-md-4 textarea {
     clear: both;
     float: left;
 }
 
 
-div#pop-up-container input, #pop-up-container
+div#dasher_editor_pop-up-container input, #dasher_editor_pop-up-container
  textarea {
     width: 100%;
     color: white;
@@ -167,7 +167,7 @@ div#pop-up-container input, #pop-up-container
     padding: 16px 10px;
 }
 
-div#pop-up-container label {
+div#dasher_editor_pop-up-container label {
     color: white;
     font-size: 1.2em;
     text-transform: capitalize;
@@ -180,10 +180,10 @@ h5#dasher_popup_header_title {
     padding-top: 16px;
     font-size: 1.6rem;
 }
-#pop-up-container .col-sm-6.col-md-4 label {
+#dasher_editor_pop-up-container .col-sm-6.col-md-4 label {
     font-weight: bold;
 }
-#pop-up-container textarea#desc {
+#dasher_editor_pop-up-container textarea#desc {
     min-height: 0;
     margin-bottom: 30px;
     padding-bottom: 1%;
@@ -195,17 +195,17 @@ h5#dasher_popup_header_title {
     transition: none;
     background: transparent !important;
 }
-#pop-up-container .description_container {
+#dasher_editor_pop-up-container .description_container {
     float: left;
     width: 100%;
     background: rgba(0, 0, 0, 0.23);
     padding-top: 20px;
     margin-bottom: 20px;
 }
-#pop-up-container select {
+#dasher_editor_pop-up-container select {
     height: 40px;
 }
-#pop-up-container .col-sm-6.col-md-4 {
+#dasher_editor_pop-up-container .col-sm-6.col-md-4 {
     padding-left: 0px;
     padding-right: 1%;
 }

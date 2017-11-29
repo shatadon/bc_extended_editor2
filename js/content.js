@@ -3,18 +3,22 @@
 if (jQuery('input[type="hidden"][name="product_id"]').length === 0) {
   //Do nothing
 } else {
+    startDasher();
+}  //end If statement
 
+function startDasher() {
     $.get(chrome.extension.getURL('templates/modal_popup.html'), function(data) {
         // Or if you're using jQuery 1.8+:
         $($.parseHTML(data)).prependTo('body');
     });
-
     jQuery("body").addClass("bc-editor");
-    // jQuery(".bc-editor").prepend("<button type='button' id='editor-btn' class='btn btn-primary' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/> &nbsp;Edit This Product</button>");
     jQuery(".bc-editor").prepend("<header id='editor-btn' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/><button class='btn btn-secondary'>Edit This Product</button> <button class='btn btn-secondary'> Create a product</button></header>");
-}  //end If statement
-
-
+    chrome.storage.sync.get({
+    		'store_Hash':''
+    }, function(items) {
+        sessionStorage.setItem("dasher-store", items.store_Hash);
+    });
+}
 
 function get_product() {
     chrome.storage.sync.get({
@@ -23,7 +27,7 @@ function get_product() {
   		'store_Hash':''
     }, function(items) {
       var productID = jQuery('input[type="hidden"][name="product_id"]').val();
-      var apiURL = "https://api.bigcommerce.com/stores/" + items.store_Hash + "/v3/catalog/products/" + productID + "?include=variants,custom_fields";
+      var apiURL = "https://api.bigcommerce.com/stores/" + items.store_Hash + "/v3/catalog/products/" + productID + "?include=variants,custom_fields,images";
       var settings = {
           "async": true,
           "crossDomain": true,
@@ -37,6 +41,7 @@ function get_product() {
         };
         $.ajax(settings).done(function (response) {
             var data = response.data;
+          //  console.log(data);
             $(".modal-body").append('<div id="details" class="tabContent active"></div>');
             $(".modal-body").append('<div id="media" class="tabContent"></div>');
             $(".modal-body").append('<div id="inventory" class="tabContent"></div>');
@@ -79,7 +84,12 @@ function get_product() {
 
 
             //Media Tab content
-            $("#media").append('<div class="col-sm-6 col-md-4"><label>Images:</label></br><img src="'+response.data.variants[0].image_url+'"/></div>');
+            $("#media").append('<div id="dasher_gallery" class="col-sm-6 col-md-4"></div>');
+            $.each(response.data.images, function(key, value) {
+                  var imgBox = $('#dasher_gallery');
+                  imgBox.append('<div class="img_container"><img id="'+value.id+'" src="'+value.url_thumbnail+'" alt="'+value.url_standard+'"/><br/><a id="'+value.id+'" href="#">Delete this Image</a></div>');
+            });
+            // $("#media").append('<div class="col-sm-6 col-md-4"><label>Images:</label></br><img src="'+response.data.variants[0].image_url+'"/></div>');
             $("#media").append('<div class="col-sm-6 col-md-4"><label>Upload New Images:</label></br><input id="img_files" type="file"/></div></br><img id="img_preview" src="#" height="200" style="display:none" alt="Image preview...">');
 
 
@@ -111,6 +121,39 @@ function get_product() {
                 previewFile();
             });
 
+            //Remove IMAGES
+            $("div#dasher_gallery .img_container a").click(function(){
+                imgLink = $(this);
+                imgID = $(this).attr("id");
+                var data = null;
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+                xhr.addEventListener("readystatechange", function () {
+                     if (this.readyState === 4 && xhr.status == 204) {
+                         // Delete image
+                         $('#updateStatus').text("Image Deleted Successfully!");
+                         $('#updateStatus').toggle('slow');
+                         setTimeout(function() {
+                           imgLink.closest("div.img_container").remove();
+                           $('#updateStatus').toggle('slow');
+                         }, 3000);
+
+                     }
+                });
+                chrome.storage.sync.get({
+                    'client_ID':'',
+                    'auth_Token':'',
+                		'store_Hash':''
+                }, function(items) {
+                    var productID = jQuery('input[type="hidden"][name="product_id"]').val();
+                    xhr.open("DELETE", "https://api.bigcommerce.com/stores/"+items.store_Hash+"/v3/catalog/products/"+productID+"/images/"+imgID);
+                    xhr.setRequestHeader("x-auth-client", items.client_ID);
+                    xhr.setRequestHeader("x-auth-token", items.auth_Token);
+                    xhr.setRequestHeader("cache-control", "no-cache");
+                    xhr.send(data);
+                });
+            });
+
 
         }); //end response ajax
 
@@ -119,8 +162,7 @@ function get_product() {
 } // end get product function
 
 function cancel_edit() {
-  $('#editorPopup').toggle();
-  $('.modal-backdrop').remove();
+  location.reload();
 }
 
 function update_product() {
@@ -144,7 +186,11 @@ function update_product() {
     xhr.addEventListener("readystatechange", function () {
          if (this.readyState === 4 && xhr.status == 200) {
              // console.log(this.responseText);
-             update_image();
+             if($("#img_files").prop("value") === "") {
+               location.reload();
+             } else {
+               update_image();
+             }
          }
     });
     chrome.storage.sync.get({

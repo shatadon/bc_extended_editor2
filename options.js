@@ -34,6 +34,7 @@ function restore_options() {
 	 	document.getElementById("auth_token").value = items.auth_Token;
 		document.getElementById("store_hash").value = items.store_Hash;
   });
+
 }
 
 //Activate Plugin

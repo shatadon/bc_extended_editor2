@@ -1,5 +1,4 @@
 
-
 //No click event
 if (jQuery('input[type="hidden"][name="product_id"]').length === 0) {
   //Do nothing
@@ -120,7 +119,8 @@ function get_product() {
 } // end get product function
 
 function cancel_edit() {
-  $('#dasher_editor_pop-up-container').remove();
+  $('#editorPopup').toggle();
+  $('.modal-backdrop').remove();
 }
 
 function update_product() {

@@ -11,7 +11,7 @@ function save_options() {
 		store_Hash: storeHash
   }, function() {
     // Update status to let user know options were saved.
-    var status = document.getElementById('status'); 
+    var status = document.getElementById('status');
     status.textContent = 'Store settings saved.';
     setTimeout(function() {
       status.textContent = '';
@@ -36,6 +36,19 @@ function restore_options() {
   });
 }
 
+//Activate Plugin
+function activate() {
+	chrome.tabs.insertCSS(null, {"file": "css/jquery-ui.min.css"});
+	chrome.tabs.insertCSS(null, {"file": "css/bootstrap.min.css"});
+	chrome.tabs.insertCSS(null, {"file": "editor/summernote-bs4.css"});
+	chrome.tabs.insertCSS(null, {"file": "css/styles.css"});
+	chrome.tabs.executeScript(null, {"file": "js/tether.min.js"});
+	chrome.tabs.executeScript(null, {"file": "js/bootstrap.min.js"});
+	chrome.tabs.executeScript(null, {"file": "editor/summernote-bs4.js"});
+	chrome.tabs.executeScript(null, {"file": "js/content.js"});
+}
+
 document.addEventListener('DOMContentLoaded', restore_options);
 jQuery('#save').on('click', save_options);
+jQuery('#activate').on('click', activate);
 //document.getElementById('save').addEventListener('click', save_options);

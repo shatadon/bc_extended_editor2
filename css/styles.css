@@ -300,3 +300,7 @@ header#editor-btn button.close span {
     text-shadow: rgb(148, 5, 5) 0px 0px 0px;
     opacity: 1;
 }
+div#dasher_editor_pop-up-container .show div.dropdown-menu {
+  left: 0;
+  display: inline-table;
+}

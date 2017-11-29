@@ -1,6 +1,3 @@
+# Dasher_Frontend_Editor
 
-
-
-bc_extended_editor
-
-Extended Editor for BigCommerce.
+Frontend Editor for BigCommerce.

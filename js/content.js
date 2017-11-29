@@ -1,20 +1,17 @@
+
 //No click event
 if (jQuery('input[type="hidden"][name="product_id"]').length === 0) {
   //Do nothing
 } else {
-
 
     $.get(chrome.extension.getURL('templates/modal_popup.html'), function(data) {
         // Or if you're using jQuery 1.8+:
         $($.parseHTML(data)).prependTo('body');
     });
 
-  jQuery("body").addClass("bc-editor");
-  // jQuery(".bc-editor").prepend("<button type='button' id='editor-btn' class='btn btn-primary' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/> &nbsp;Edit This Product</button>");
-jQuery(".bc-editor").prepend("<header id='editor-btn' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/><button class='btn btn-secondary'>Edit This Product</button> <button class='btn btn-secondary'> Create a product</button></header>");
-
-
-
+    jQuery("body").addClass("bc-editor");
+    // jQuery(".bc-editor").prepend("<button type='button' id='editor-btn' class='btn btn-primary' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/> &nbsp;Edit This Product</button>");
+    jQuery(".bc-editor").prepend("<header id='editor-btn' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/><button class='btn btn-secondary'>Edit This Product</button> <button class='btn btn-secondary'> Create a product</button></header>");
 }  //end If statement
 
 
@@ -122,7 +119,8 @@ function get_product() {
 } // end get product function
 
 function cancel_edit() {
-  $('#dasher_editor_pop-up-container').remove();
+  $('#editorPopup').toggle();
+  $('.modal-backdrop').remove();
 }
 
 function update_product() {
@@ -165,34 +163,63 @@ function update_product() {
 } // end Update function
 
 function update_image() {
-    // define product image data
-    var image = jQuery('#img_preview').attr("src");
-    var data = JSON.stringify({
-        "image_file": image,
-        "image_url": ""
-    });
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-         if (this.readyState === 4 && xhr.status == 200) {
-             // console.log(this.responseText);
-             location.reload();
-         }
-    });
-    chrome.storage.sync.get({
-        'client_ID':'',
-        'auth_Token':'',
-    		'store_Hash':''
-    }, function(items) {
-        var productID = jQuery('input[type="hidden"][name="product_id"]').val();
-        xhr.open("POST", "https://api.bigcommerce.com/stores/"+items.store_Hash+"/v3/catalog/products/"+productID+"/images");
-        xhr.setRequestHeader("x-auth-client", items.client_ID);
-        xhr.setRequestHeader("x-auth-token", items.auth_Token);
-        xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("cache-control", "no-cache");
-        xhr.send(data);
-    });
+  var formData = new FormData();
+  formData.append("image", $("#img_files")[0].files[0]);
+  $.ajax({
+    url: "https://api.imgur.com/3/image",
+    type: "POST",
+    datatype: "json",
+    headers: {
+      "Authorization": "Client-ID 6e6e5c7b9f28ea0"
+    },
+    data: formData,
+    success: function(response) {
+        var photo = response.data.link;
+        var photo_hash = response.data.id;
+        // post to BC
+        var data = JSON.stringify({
+            "image_url": photo
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        xhr.addEventListener("readystatechange", function () {
+             if (this.readyState === 4 && xhr.status == 200) {
+                 // Delete image from image_url
+                 $.ajax({
+                    url: "https://api.imgur.com/3/image/"+photo_hash,
+                    type: "DELETE",
+                    headers: {
+                      "Authorization": "Client-ID 6e6e5c7b9f28ea0"
+                    },
+                    success: function(response) {
+                      //reload page
+                      location.reload();
+                    }
+                });
+
+             }
+        });
+        chrome.storage.sync.get({
+            'client_ID':'',
+            'auth_Token':'',
+        		'store_Hash':''
+        }, function(items) {
+            var productID = jQuery('input[type="hidden"][name="product_id"]').val();
+            xhr.open("POST", "https://api.bigcommerce.com/stores/"+items.store_Hash+"/v3/catalog/products/"+productID+"/images");
+            xhr.setRequestHeader("x-auth-client", items.client_ID);
+            xhr.setRequestHeader("x-auth-token", items.auth_Token);
+            xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("cache-control", "no-cache");
+            xhr.send(data);
+        });
+    },
+    cache: false,
+    contentType: false,
+    processData: false
+  });
 } // end Update IMAGES function
+
+
 
 //Image upload
 function previewFile() {
@@ -215,7 +242,7 @@ jQuery('#editor-btn').on('click', get_product);
 
 
 // //Click Event
-// chrome.runtime.onMessage.addListener(
+// chrome.runtime.onMessage.addListener (
 //   function(request, sender, sendResponse) {
 //     if( request.message === "clicked_browser_action" ) {
 //

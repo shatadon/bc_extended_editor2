@@ -7,22 +7,20 @@
     "scripts": ["js/background.js"],
     "persistent": false
   },
-  "content_scripts": [
-    {
-      "css": ["css/jquery-ui.min.css","css/bootstrap.min.css","editor/summernote-bs4.css","css/styles.css"],
-      "js": ["js/jquery-3.2.1.min.js","js/tether.min.js","js/bootstrap.min.js","editor/summernote-bs4.js","js/content.js","options.js"],
-      "matches": ["<all_urls>", "http://*/*", "https://*/*"]
-    }
-  ],
+  "content_scripts":[ {
+       "js": ["js/jquery-3.2.1.min.js","options.js"],
+       "matches": ["<all_urls>"]
+   }],
   "web_accessible_resources" : [
         "templates/*",
         "editor/*"
   ],
 
   "permissions": [
-        "storage","tabs", "http://*/*", "https://*/*","file:///*" , "activeTab"
+        "storage","tabs","http://*/*", "https://*/*","file:///*" , "activeTab"
       ],
   "browser_action": {
+    "name":"Dasher Product Editor",
     "default_icon": "bc_logo.png",
     "default_popup": "options.html"
   }

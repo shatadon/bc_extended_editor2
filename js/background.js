@@ -1,14 +1,25 @@
 // background.js
 
-// Called when the user clicks on the browser action.
-chrome.browserAction.onClicked.addListener(function(tab) {
-  // Send a message to the active tab
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    var activeTab = tabs[0];
-    chrome.tabs.executeScript(activeTab.id, {file: js/content.js});
-  });
+chrome.browserAction.onClicked.addListener(function (tab) { //Fired when User Clicks ICON
+     // Inspect whether the place where user clicked matches with our list of URL
+     chrome.tabs.insertCSS(tab.id, {"file": "css/jquery-ui.min.css"});
+     chrome.tabs.insertCSS(tab.id, {"file": "css/bootstrap.min.css"});
+     chrome.tabs.insertCSS(tab.id, {"file": "editor/summernote-bs4.css"});
+     chrome.tabs.insertCSS(tab.id, {"file": "css/styles.css"});
+     chrome.tabs.executeScript(tab.id, {"file": "js/jquery-3.2.1.min.js"});
+     chrome.tabs.executeScript(tab.id, {"file": "js/tether.min.js"});
+     chrome.tabs.executeScript(tab.id, {"file": "js/bootstrap.min.js"});
+     chrome.tabs.executeScript(tab.id, {"file": "editor/summernote-bs4.js"});
+     chrome.tabs.executeScript(tab.id, {"file": "js/content.js"});
 });
 
+// "default_icon": "bc_logo.png",
+// "default_popup": "options.html"
+// "content_scripts":[ {
+//    "css": ["css/jquery-ui.min.css","css/bootstrap.min.css","editor/summernote-bs4.css","css/styles.css"],
+//    "js": ["js/jquery-3.2.1.min.js","js/tether.min.js","js/bootstrap.min.js","editor/summernote-bs4.js","js/content.js"],
+//     "matches": ["<all_urls>"]
+// }],
 
 // // Handle requests for passwords
 // chrome.runtime.onMessage.addListener(function(request, sender) {

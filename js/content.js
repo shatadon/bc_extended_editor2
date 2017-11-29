@@ -12,7 +12,7 @@ function startDasher() {
         $($.parseHTML(data)).prependTo('body');
     });
     jQuery("body").addClass("bc-editor");
-    jQuery(".bc-editor").prepend("<header id='editor-btn' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/><button class='btn btn-secondary'>Edit This Product</button> <button class='btn btn-secondary'> Create a product</button></header>");
+    jQuery(".bc-editor").prepend("<header id='editor-btn' data-toggle='modal' data-target='#editorPopup'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><img class='hilogo' src='http://35.196.61.186/wp-content/uploads/2017/11/dasher_white.png'/><button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button><button id='dasher-editProduct' class='btn btn-secondary'>Edit This Product</button> <button class='btn btn-secondary'> Create a product</button></header>");
     chrome.storage.sync.get({
     		'store_Hash':''
     }, function(items) {
@@ -165,6 +165,11 @@ function cancel_edit() {
   location.reload();
 }
 
+function kill_Dasher() {
+    sessionStorage.removeItem("dasher-store");
+    location.reload();
+}
+
 function update_product() {
     // define product data
     var name = jQuery('input#name').prop("value");
@@ -265,8 +270,6 @@ function update_image() {
   });
 } // end Update IMAGES function
 
-
-
 //Image upload
 function previewFile() {
     var preview = jQuery('#img_preview');
@@ -282,8 +285,8 @@ function previewFile() {
   //  }
 }
 
-jQuery('#editor-btn').on('click', get_product);
-
+jQuery('#dasher-editProduct').on('click', get_product);
+jQuery('header#editor-btn button.close').on('click', kill_Dasher);
 
 
 

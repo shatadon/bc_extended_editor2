@@ -290,3 +290,13 @@ div#dasher_editor_pop-up-container div#updateStatus {
     text-transform: capitalize;
     text-align: center;
 }
+header#editor-btn button.close {
+    line-height: 65px;
+    width: 45px;
+}
+
+header#editor-btn button.close span {
+    color: #ffffff;
+    text-shadow: rgb(148, 5, 5) 0px 0px 0px;
+    opacity: 1;
+}
